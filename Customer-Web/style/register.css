@@ -1,0 +1,147 @@
+/* ================= RESET ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ================= BODY ================= */
+
+body{
+    background:#f5f5f5;
+    font-family:Arial, Helvetica, sans-serif;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+    padding:40px;
+}
+
+/* ================= REGISTER CONTAINER ================= */
+
+.register-container{
+    width:450px;
+    background:white;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+/* ================= HEADINGS ================= */
+
+.register-container h1{
+    text-align:center;
+    color:blue;
+    margin-bottom:10px;
+}
+
+.register-container h2{
+    text-align:center;
+    color:#555;
+    margin-bottom:30px;
+    font-size:20px;
+    font-weight:normal;
+}
+
+/* ================= FORM ================= */
+
+.register-container form{
+    display:flex;
+    flex-direction:column;
+}
+
+/* ================= LABELS ================= */
+
+.register-container label{
+    font-weight:bold;
+    margin-bottom:8px;
+    color:#333;
+}
+
+/* ================= INPUTS ================= */
+
+.register-container input,
+.register-container select,
+.register-container textarea{
+
+    width:100%;
+    padding:12px;
+
+    margin-bottom:20px;
+
+    border:1px solid #ccc;
+    border-radius:6px;
+
+    font-size:16px;
+    font-family:inherit;
+}
+
+/* ================= INPUT FOCUS ================= */
+
+.register-container input:focus,
+.register-container select:focus,
+.register-container textarea:focus{
+
+    border-color:blue;
+    outline:none;
+    box-shadow:0 0 5px rgba(0,0,255,.3);
+}
+
+/* ================= TEXTAREA ================= */
+
+.register-container textarea{
+    resize:vertical;
+    min-height:100px;
+}
+
+/* ================= BUTTON ================= */
+
+.register-container button{
+
+    width:100%;
+    padding:14px;
+
+    border:none;
+    border-radius:6px;
+
+    background:blue;
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.register-container button:hover{
+    background:darkblue;
+}
+
+/* ================= FOOTER TEXT ================= */
+
+.register-container p{
+    text-align:center;
+    margin-top:25px;
+    margin-bottom:10px;
+}
+
+/* ================= LOGIN LINK ================= */
+
+.login{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    color:white;
+    background: blue;
+    font-weight:bold;
+    border-radius: 10px;
+    padding: 13px;
+}
+
+.login:hover{
+    background: darkblue;
+}

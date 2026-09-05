@@ -1,0 +1,383 @@
+/*================================RESET==========================*/
+*{
+    margin:0;                 /* Removes default outside spacing */
+    padding:0;                /* Removes default inside spacing */
+    box-sizing:border-box;    /* Width and height include padding and border */
+}
+
+body{
+    background:white;                                           
+    color:black;                                         
+    font-family:Arial, Helvetica, sans-serif;             
+    transition:0.3s;                                     
+    padding-bottom:70px;                                  /* Prevents content from hiding behind bottom panel */
+}
+
+body.dark-mode{
+    background:black;       
+    color:white;            
+}
+
+/* ==============================HEADER============================*/
+header{
+    position:fixed;           
+    top:0;                    /* Position from top */
+    left:0;                   /* Position from left */
+    width:100%;               /* Full page width */
+    background:white;       /* White background */
+    box-shadow:0 2px 6px rgba(0,0,0,.2); /* Shadow underneath */
+    z-index:1000;             /* Keeps header above everything */
+    transition:.3s;           /* Smooth theme change */
+}
+
+body.dark-mode header{
+    background:black;
+}
+
+.top-header{
+    display:flex;                 /* Places items in one row */
+    justify-content:space-between;/* Pushes items apart */
+    align-items:center;           /* Vertically centres items */
+    padding:15px 30px;            /* Space inside header */
+}
+
+.logo img{
+    width: 500px;          /* Logo width */
+    height:80px;          /* Logo height */
+}
+
+.search-box{
+    display:flex;          /* Input and button sit side-by-side */
+    align-items:center;    /* Vertically aligned */
+}
+
+.search-box input{
+    width:500px;                  /* Input width */
+    height:42px;                  /* Input height */
+    padding:10px;                 /* Space inside textbox */
+    border:1px solid #cccccc;     /* Grey border */
+    border-radius:6px 0 0 6px;    /* Rounded left corners */
+    outline:none;                 /* Removes blue outline */
+    font-size:15px;               /* Text size */
+    transition:.3s;
+}
+
+.search-box button{
+    height:42px;                  /* Same height as input */
+    padding:0 18px;               /* Left and right spacing */
+    border:none;                  /* No border */
+    background:blue;              /* Blue background */
+    color:white;                  /* White text */
+    cursor:pointer;               /* Hand cursor */
+    border-radius:0 6px 6px 0;    /* Rounded right corners */
+    font-size:18px;
+}
+
+/* Search input in dark mode */
+body.dark-mode .search-box input{
+    background:#2b2b2b;
+    color:white;
+    border:1px solid #555;
+}
+
+.wishlist a{
+    text-decoration:none;     /* Removes underline */
+    color:#000;
+    font-weight:bold;          /* Bold text */
+    transition:.3s;
+}
+
+.wishlist a:hover{
+    color:blue;
+}
+
+body.dark-mode .wishlist a{
+    color:white;
+}
+
+
+/* ==========================================================
+   THEME BUTTON
+   Switches between light and dark mode.
+========================================================== */
+.theme-toggle button{
+    width:45px;           /* Button width */
+    height:45px;          /* Button height */
+    border:none;          /* Removes border */
+    border-radius:50%;    /* Makes button circular */
+    font-size:50px;       /* Moon/Sun size */
+    cursor:pointer;
+    transition:.3s;
+    background: none;
+}
+
+/* Hover animation */
+.theme-toggle button:hover{
+    transform:scale(1.08);    /* Slightly larger */
+}
+
+
+/* ==========================================================
+   NAVIGATION BAR
+========================================================== */
+
+nav{
+    display:flex;
+    justify-content:center;    /* Centre links */
+    align-items:center;        /* Vertical alignment */
+    background:blue;
+    height:50px;
+}
+
+/* Navigation links */
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:16px 25px;     /* Clickable area */
+    transition:.3s;
+}
+
+nav a:hover{
+    background:darkblue;
+}
+
+body.dark-mode nav{
+    background:#111111;
+}
+
+
+/* ==========================================================
+   MAIN CONTENT
+========================================================== */
+
+main{
+
+    margin-top:145px;      /* Leaves space for fixed header */
+
+    padding:20px;
+}
+
+
+/* ==========================================================
+   PRODUCT GRID
+   Automatically arranges products into columns.
+========================================================== */
+
+.products{
+
+    display:grid;
+
+    /* Creates responsive columns */
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;              /* Space between products */
+}
+
+
+/* ==========================================================
+   PRODUCT CARD
+========================================================== */
+
+.product{
+
+    background:white;
+
+    border:1px solid #dddddd;
+
+    border-radius:10px;
+
+    padding:15px;
+
+    text-align:center;
+
+    transition:.3s;
+}
+
+/* Hover effect */
+
+.product:hover{
+
+    transform:translateY(-6px);   /* Moves card upward */
+
+    box-shadow:0 5px 15px rgba(0,0,0,.25);
+}
+
+/* Dark mode */
+
+body.dark-mode .product{
+
+    background:#222;
+
+    border:1px solid #444;
+}
+
+
+/* ==========================================================
+   PRODUCT IMAGE
+========================================================== */
+
+.product img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;      /* Fills image area */
+
+    border-radius:8px;
+}
+
+
+/* ==========================================================
+   PRODUCT NAME
+========================================================== */
+
+.product h3{
+
+    margin-top:12px;
+
+    margin-bottom:10px;
+
+    color:#000;
+
+    font-size:20px;
+}
+
+body.dark-mode .product h3{
+
+    color:white;
+}
+
+
+/* ==========================================================
+   PRODUCT PRICE
+========================================================== */
+
+.product p{
+
+    color:blue;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+}
+
+body.dark-mode .product p{
+
+    color:#4ea3ff;
+}
+
+
+/* ==========================================================
+   PRODUCT BUTTON
+========================================================== */
+
+.product button{
+
+    border:none;
+
+    background:blue;
+
+    color:white;
+
+    padding:12px 20px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+/* Hover effect */
+
+.product button:hover{
+
+    background:darkblue;
+}
+
+
+/* ==========================================================
+   BOTTOM PANEL (FOOTER)
+   Always stays at the bottom of the screen.
+========================================================== */
+
+.bottom-panel{
+
+    position:fixed;         /* Fixed to screen */
+
+    left:0;
+
+    bottom:0;
+
+    width:100%;
+
+    height:55px;
+
+    background:blue;
+
+    display:flex;
+
+    justify-content:space-around; /* Even spacing */
+
+    align-items:center;
+
+    box-shadow:0 -2px 6px rgba(0,0,0,.25);
+}
+
+/* Footer links */
+
+.bottom-panel a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.bottom-panel a:hover{
+
+    color:#dddddd;
+}
+
+/* Footer in dark mode */
+
+body.dark-mode .bottom-panel{
+
+    background:#111111;
+}
+
+
+/* ==========================================================
+   SCROLL BAR
+   Changes the appearance of the browser scrollbar.
+========================================================== */
+
+/* Scrollbar width */
+
+::-webkit-scrollbar{
+
+    width:10px;
+}
+
+/* Draggable scrollbar */
+
+::-webkit-scrollbar-thumb{
+
+    background:blue;
+
+    border-radius:10px;
+}
+
+/* Hover effect */
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:darkblue;
+}

@@ -1,0 +1,21 @@
+/* ================= NAVIGATION Panel================= */
+nav{
+    display:flex;
+    flex-direction: column;
+}
+
+nav a{
+    color: black;
+    text-decoration:none;
+    padding:15px 25px;
+    height: 100%;
+}
+
+nav a:hover{
+    background:cornsilk;
+}
+
+.logo {
+    height:auto;
+    width:100%;
+}

@@ -1,0 +1,134 @@
+/* ================= RESET ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ================= BODY ================= */
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f5f5;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    height:100vh;
+}
+
+/* ================= LOGIN BOX ================= */
+
+.login-container{
+    width:400px;
+    background:white;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    text-align:center;
+}
+
+/* ================= HEADINGS ================= */
+
+.login-container h1{
+    color:blue;
+    margin-bottom:10px;
+}
+
+.login-container h2{
+    color:#555;
+    margin-bottom:30px;
+    font-size:20px;
+    font-weight:normal;
+}
+
+/* ================= LABELS ================= */
+
+.login-container label{
+    display:block;
+    text-align:left;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+/* ================= INPUTS ================= */
+
+.login-container input[type="text"],
+.login-container input[type="password"]{
+
+    width:100%;
+    padding:12px;
+
+    margin-bottom:20px;
+
+    border:1px solid #ccc;
+    border-radius:6px;
+
+    font-size:16px;
+}
+
+/* ================= OPTIONS ================= */
+
+.options{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    font-size:14px;
+}
+
+.remember{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.options a{
+    text-decoration:none;
+    color:blue;
+}
+
+.options a:hover{
+    text-decoration:underline;
+}
+
+/* ================= BUTTON ================= */
+
+button{
+    width:100%;
+    padding:14px;
+
+    border:none;
+    border-radius:6px;
+
+    background:blue;
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+button:hover{
+    background:darkblue;
+}
+
+/* ================= CREATE ACCOUNT ================= */
+
+.login-container p{
+    margin-top:25px;
+    margin-bottom:10px;
+}
+
+.create-account{
+    text-decoration:none;
+    color:blue;
+    font-weight:bold;
+}
+
+.create-account:hover{
+    text-decoration:underline;
+}

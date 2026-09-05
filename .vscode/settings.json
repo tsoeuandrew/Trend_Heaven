@@ -1,0 +1,30 @@
+{
+    "editor.fontSize": 16,
+    "csharp.inlayHints.enableInlayHintsForLambdaParameterTypes": true,
+    "csharp.inlayHints.enableInlayHintsForTypes": true,
+    "dotnet.inlayHints.enableInlayHintsForObjectCreationParameters": true,
+    "workbench.colorTheme": "GitHub Dark Default",
+    "vscode-edge-devtools.headless": false,
+    "mssql.connectionGroups": [
+        {
+            "name": "ROOT",
+            "id": "ROOT"
+        },
+        {
+            "name": "White Group",
+            "description": "For real projects only no test",
+            "color": "#720578",
+            "id": "5ca610de-8dc0-4590-8bd6-333a81810377",
+            "parentId": "ROOT"
+        }
+    ],
+    "vscode-edge-devtools.webhintInstallNotification": true,
+    "js/ts.experimental.useTsgo": true,
+    "workbench.editor.enablePreview": false,
+    "editor.inlineSuggest.edits.showCollapsed": true,
+    "mssql.autoDisableNonTSqlLanguageService": true,
+    "mssql.connections": [],
+    "terminal.integrated.initialHint": false,
+    "explorer.confirmDelete": false,
+    "php.validate.executablePath": "C:\\xampp\\php\\php.exe"
+}
