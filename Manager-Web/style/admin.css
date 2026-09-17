@@ -6,6 +6,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
+    height:20%;
     background: white;
     box-shadow: 0 2px 6px rgba(0,0,0,.2);
     z-index: 1000;
@@ -21,7 +22,7 @@ header {
 
 .logo img {
     width: 300px;
-    height: auto;
+    height: 50px;
 }
 
 .search-box {
@@ -30,8 +31,8 @@ header {
 }
 
 .search-box input {
-    height: 60px;
-    width: 700px;
+    height: 40px;
+    width: 600px;
     padding: 10px;
     border: 1px solid #cccccc;
     border-radius: 6px 0 0 6px;
@@ -42,7 +43,7 @@ header {
 
 .search-box button {
     width: 50px;
-    height: 60px;
+    height: 40px;
     padding: 0;
     border: none;
     background: #6b4eff;
@@ -68,8 +69,8 @@ header {
 }
 
 .theme-toggle button {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 40px;
     margin: 0;
     padding: 0;
     border: none;
@@ -91,11 +92,11 @@ nav {
     justify-content: center;
     align-items: center;
     background: blue;
-    width: 750px;
+    width: 800px;
     max-width: 90%;
     margin: 0 auto 35px;
     border-radius: 10px;
-    height: 50px;
+    height: 35px;
 }
 
 nav a {
