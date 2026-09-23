@@ -17,11 +17,11 @@
         <form method="post">
          <label for="username">Username</label>
          <input type="text" id="username" placeholder="Enter your username" required>
+         <span class="error">*<?php echo username_error ?>
 
          <label for="password">Password</label>
-         <input type="password" 
-                id="password" 
-                placeholder="Enter your password" required>
+         <input type="password"  id="password"  placeholder="Enter your password" required>
+         <span class="error">*<?php echo password_error ?>
 
          <div class="options">
               <label class="remember">
