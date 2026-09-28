@@ -26,15 +26,15 @@ function validate_user(){
         }
         else{validate_user($_post["email"]);}
 
-        if (empty($_post["password"])) {
-         $password_error = "password Required";
-        }
-        else{validate_user($_post["password"]);}
-
         if (empty($_post["mobile_number"])) {
          $mobile_number = "Mobile Number Required";
         }
         else{validate_user($_post["mobile_number"]);}
+
+        if (empty($_post["password"])) {
+         $password_error = "password Required";
+        }
+        else{validate_user($_post["password"]);}
     }
 
 }
@@ -102,5 +102,23 @@ function validate_product(){
 
     }
 }
+
+function insert_into_product(){
+    $sql = "insert into Products 
+                (ProductID, Name, Type, Category, Price, Size, Colour, 
+                 Stock, Description, Image)
+            values 
+                ('$productid','$name', '$type', '$category', '$price', '$size', 
+                '$colour', '$stock', '$description', '$image')";   
+}
    
+function insert_into_user(){
+    $sql = "insert into Products 
+                (IDNumber, Name, , Surname, Gender, Date_of_Birth, Address, 
+                 Username, Email, Mobile_Number, Password)
+            values 
+                ('$id_number','$name', '$surname', '$gender', '$date_of_birth', '$address', 
+                '$username', '$email', '$mobile_number', '$password')";   
+}
+
 ?>

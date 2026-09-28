@@ -2,13 +2,16 @@
 CREATE DATABASE if NOT exists Trend_Heaven;
 use Trend_Heaven;
  CREATE TABLE if NOT exists Customers (
-            CustomerID int NOT NULL auto_increment PRIMARY KEY,
+            ID_Number int NOT NULL auto_increment PRIMARY KEY,
             Name varchar(50) NOT NULL,
             Surname varchar(50) NOT NULL,
             Gender  VARCHAR(20) NOT NULL,
+            Date_of_Birth number NOT NULL,
+            Address VARCHAR(128),
+            Username VARCHAR(50),
             Email VARCHAR(50) NOT NULL,
-            Mobile_Number INT(10),
-            Password VARCHAR (64)
+            Mobile_Number INT(10) NOT NULL,
+            Password VARCHAR (64) NOT NULL
  ); 
   CREATE TABLE if NOT exists Orders (
             ProductID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
