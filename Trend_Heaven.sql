@@ -4,7 +4,11 @@ use Trend_Heaven;
  CREATE TABLE if NOT exists Customers (
             CustomerID int NOT NULL auto_increment PRIMARY KEY,
             Name varchar(50) NOT NULL,
-            Surname varchar(50) NOT NULL
+            Surname varchar(50) NOT NULL,
+            Gender  VARCHAR(20) NOT NULL,
+            Email VARCHAR(50) NOT NULL,
+            Mobile_Number INT(10),
+            Password VARCHAR (64)
  ); 
   CREATE TABLE if NOT exists Orders (
             ProductID int NOT NULL AUTO_INCREMENT PRIMARY KEY,

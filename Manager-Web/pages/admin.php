@@ -170,7 +170,13 @@
 
 
 
-
+<?php
+$sql = "insert into Products 
+                (ProductID, Name, Type, Category, Price, Size, Colour, 
+                 Stock, Description, Image)
+          values ('$productid','$name', '$type', '$category', '$price', '$size', 
+                   '$colour', '$stock', '$description', '$image')";
+?>
 
 
 

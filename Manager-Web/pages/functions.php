@@ -32,7 +32,7 @@ function validate_user(){
         else{validate_user($_post["password"]);}
 
         if (empty($_post["mobile_number"])) {
-         $email = "Mobile Number Required";
+         $mobile_number = "Mobile Number Required";
         }
         else{validate_user($_post["mobile_number"]);}
     }
