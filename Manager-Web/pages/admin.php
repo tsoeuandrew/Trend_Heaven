@@ -1,4 +1,5 @@
 <?php include "db.php";?>
+<?php include "functions.php";?>
 
 <!DOCTYPE html>
 <html lang="en-ZA">
@@ -61,8 +62,8 @@
          </select>
          <span class="error">*<?php echo category_error ?>
 
-         <label for="type">Product Type</label>
-         <select id="type" name="type" required>
+         <label for="product_type">Product Type</label>
+         <select id="product_type" name="product_type" required>
             <option value="" selected disabled>Select a category first</option>
          </select>
          <span class="error">*<?php echo product_type_error ?>
@@ -107,9 +108,8 @@
          <span class="error">*<?php echo description_error ?>
 
          <label for="image">Product Image</label>
-         <input type="file" 
-                id="image" 
-                name="image" required>
+         <input type="file" id="product_image" name="product_image" required>
+         <span class="error">*<?php echo product_image_error ?>
 
          <button type="submit">Add Product</button>
         </form>

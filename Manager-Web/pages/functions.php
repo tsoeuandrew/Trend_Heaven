@@ -1,104 +1,150 @@
 
 <?php 
     //define variables and set to empty value
-    $name = $username = $surname = $description = $size = $colour = $stock  = $category = $price = $product_type = $mobile_number = $email = $password =  $gender = "";
-    $name_error = $username_error = $description_error = $size_error = $colour_error = $stock_error = $category_error = $price_error =  $product_type_error = $surname_error = $mobile_number_error = $email_error = $password_error =  $gender_error = "";
+    $id_number = $name = $surname = $mobile_number = $email = $username = $password =  $gender = $address = $date_of_birth ="";
+    $id_number_error = $name_error = $surname_error = $mobile_number_error = $email_error = $username_error = $password_error =  $gender_error = $address_error = $date_of_birth_error ="";
+    $description = $size = $colour = $stock  = $category = $price = $product_type = $product_image ="";
+    $description_error = $size_error = $colour_error = $stock_error = $category_error = $price_error =  $product_type_error = $product_image_error = "";
 
 function validate_user(){
     if ($server["request_method"] = "post") {
-        if (empty($_post["name"])) {
+        $id_number = $_post['id_number'];
+        $name = $_post['name'];
+        $username = $_post['username'];
+        $surname = $_post['surname'];
+        $mobile_number = $_post['mobile_number'];
+        $email = $_post['email'];
+        $password = $_post['password'];
+        $gender = $_post['gender'];
+        $address = $_post['address'];
+        $date_of_birth = $_post['date_of_birth'];
+
+        if (empty($name)) {
          $name_error = "Name Required";
         }
-        else{validate_user($_post["name"]);}
+        elseif (!preg_match("/^[a-zA-Z]+$",$name)) {
+         $name_error = "Name Must Contain Only Alphabets";
+        }
+        else{validate_user($name);}
 
-        if (empty($_post["surname"])) {
+        if (empty($surname)) {
          $surname_error = "Surname Required";
         }
-        else{validate_user($_post["surname"]);}
+        elseif (!preg_match("/^[a-zA-Z]+$",$surname)) {
+         $surname_error = "Name Must Contain Only Alphabets";
+        }
+        else{validate_user($surname);}
 
-        if (empty($_post["gender"])) {
+        if (empty($id_number)) {
+         $id_number_error = "ID Number Required";
+        }
+        elseif (!preg_match("/^[0-9]{13}$",$id_number)) {
+         $id_number_error = "ID Number Must Contain 13 Digits";
+        }
+        else{validate_user($id_number);}
+
+        if (empty($gender)) {
          $gender_error = "Gender Required";
         }
-        else{validate_user($_post["gender"]);}
+        else{validate_user($gender);}
 
-        if (empty($_post["email"])) {
+        if (empty($email)) {
          $email_error = "Email Required";
         }
-        else{validate_user($_post["email"]);}
+        else{validate_user($email);}
 
         if (empty($_post["mobile_number"])) {
          $mobile_number = "Mobile Number Required";
         }
-        else{validate_user($_post["mobile_number"]);}
+        elseif (!preg_match("/^0[0-9]{9}+$",$mobile_number)) {
+         $mobile_error = "Number Must Contain Only Numbers";
+        }
+        else{validate_user($mobile_number);}
 
-        if (empty($_post["password"])) {
+        if (empty($password)) {
          $password_error = "password Required";
         }
-        else{validate_user($_post["password"]);}
+        elseif (!preg_match("/^[0-9]{8,}$",$password)) {
+         $password_error = "Invalid Password";
+        }
+        else{validate_user($password);}
     }
 
 }
 
 function validate_login(){
     if ($server["request_method"] = "post") {
-        if (empty($_post["username"])) {
+        $username = $_post['username'];
+        $password = $_post['password'];
+
+        if (empty($username)) {
          $username = "Userame Required";
         }
-        else{validate_user($_post["username"]);}
+        else{validate_user($username);}
 
-        if (empty($_post["password"])) {
+        if (empty($password)) {
          $password_error = "password Required";
         }
-        else{validate_user($_post["password"]);}
+        else{validate_user($password);}
     }
 }
 
 function validate_product(){
     if ($server["request_method"] = "post") {
-        if (empty($_post["name"])) {
+        $name = $name = $_post['name'];
+        $description = $_post['description'];
+        $size = $_post['size'];
+        $colour = $_post['colour'];
+        $stock  = $_post['stock'];
+        $category = $_post['category'];
+        $price = $_post['price'];
+        $product_type = $_post['product_type'];
+        $product_image = $_post['product_image'];
+
+        if (empty($name)) {
          $name_error = "Name Required";
         }
-        else{validate_user($_post["name"]);}
+        else{validate_user($name);}
 
-        if (empty($_post["category"])) {
+        if (empty($category)) {
          $category_error = "Category Required";
         }
-        else{validate_user($_post["category"]);}
+        else{validate_user($category);}
 
-        if (empty($_post["product_type"])) {
+        if (empty($product_type)) {
          $product_type_error = "Product Type Required";
         }
-        else{validate_user($_post["product_type"]);}
+        else{validate_user($product_type);}
 
-        if (empty($_post["price"])) {
+        if (empty($price)) {
          $price_error = "Price Required";
         }
-        else{validate_user($_post["price"]);}
+        else{validate_user($price);}
 
-        if (empty($_post["size"])) {
+        if (empty($size)) {
          $size_error = "Size Required";
         }
-        else{validate_user($_post["size"]);}
+        else{validate_user($size);}
 
-        if (empty($_post["colour"])) {
+        if (empty($colour)) {
          $colour = "Colour Required";
         }
-        else{validate_user($_post["colour"]);}
+        else{validate_user($colour);}
 
-        if (empty($_post["stock"])) {
+        if (empty($stock)) {
          $stock_error = "Stock Required";
         }
-        else{validate_user($_post["stock"]);}
+        else{validate_user($stock);}
 
-        if (empty($_post["description"])) {
+        if (empty($description)) {
          $description_error = "Description Required";
         }
-        else{validate_user($_post["description"]);}
+        else{validate_user($description);}
 
-        if (empty($_post["product_image"])) {
+        if (empty($product_image)) {
          $product_image_error = "Product Image Required";
         }
-        else{validate_user($_post["product_image"]);}
+        else{validate_user($product_image);}
 
     }
 }
@@ -108,8 +154,8 @@ function insert_into_product(){
                 (ProductID, Name, Type, Category, Price, Size, Colour, 
                  Stock, Description, Image)
             values 
-                ('$productid','$name', '$type', '$category', '$price', '$size', 
-                '$colour', '$stock', '$description', '$image')";   
+                ('$productid','$name', '$product_type', '$category', '$price', '$size', 
+                '$colour', '$stock', '$description', '$product_image')";   
 }
    
 function insert_into_user(){

@@ -1,6 +1,6 @@
 function showSubcategories() {
     const category = document.getElementById("category").value; // Get the selected category.
-    const type = document.getElementById("type"); // Get the Product Type dropdown.
+    const product_type = document.getElementById("product_type"); // Get the Product Type dropdown.
     
     // Products available under each category.
     const products = {                  
@@ -11,7 +11,7 @@ function showSubcategories() {
     };
 
     // Remove old Product Type options.
-    type.innerHTML =
+    product_type.innerHTML =
         '<option value="" selected disabled>Select Product Type</option>';
 
     // Add Product Type options for the selected category.
