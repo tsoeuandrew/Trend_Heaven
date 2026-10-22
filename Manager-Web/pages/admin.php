@@ -1,5 +1,7 @@
-<?php include "db.php";?>
-<?php include "functions.php";?>
+<?php require_once "db.php";
+  require_once "functions.php";
+  validate_product();
+?>
 
 <!DOCTYPE html>
 <html lang="en-ZA">
@@ -129,9 +131,6 @@
          </tr>
 
             <?php
-
-            validate_product();
-
             $result = $conn->query("SELECT * FROM Products");    // Get all products from the Products table.
             if ($result) {                          // Check whether the query was successful.
                 while ($row = $result->fetch_assoc()) {      // Read and display one product at a time
