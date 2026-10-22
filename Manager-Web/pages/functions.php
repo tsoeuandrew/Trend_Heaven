@@ -100,6 +100,15 @@ function validate_product(){
         $price = $_post['price'];
         $product_type = $_post['product_type'];
         $product_image = $_post['product_image'];
+        $name = $name = $_POST['name'];
+        $description = $_POST['description'];
+        $size = $_POST['size'];
+        $colour = $_POST['colour'];
+        $stock  = $_POST['stock'];
+        $category = $_POST['category'];
+        $price = $_POST['price'];
+        $product_type = $_POST['product_type'];
+        $product_image = $_POST['product_image'];
 
         if (empty($name)) {
          $name_error = "Name Required";
