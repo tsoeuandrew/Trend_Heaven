@@ -129,6 +129,9 @@
          </tr>
 
             <?php
+
+            validate_product();
+
             $result = $conn->query("SELECT * FROM Products");    // Get all products from the Products table.
             if ($result) {                          // Check whether the query was successful.
                 while ($row = $result->fetch_assoc()) {      // Read and display one product at a time
