@@ -49,33 +49,33 @@
     </header>
 
     <Main>
-        <form action="add_product.php" method="post" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
           <label for="name">Product Name</label>
-         <input type="text" id="name" name="name" required>
-         <span class="error">*<?php echo name_error ?>
+         <input type="text" id="name" name="name"  >
+         <span class="error">*<?php echo $name_error ?? ''; ?>
 
          <label for="category">Category</label>
-         <select id="category" name="category" required onchange="showSubcategories()">
+         <select id="category" name="category"   onchange="showSubcategories()">
              <option value="" selected disabled>Select Category</option>
              <option value="Men">Men</option>
              <option value="Women">Women</option>
              <option value="Kids">Kids</option>
              <option value="Home">Home</option>
          </select>
-         <span class="error">*<?php echo category_error ?>
+         <span class="error">*<?php echo $category_error ?? ''; ?>
 
          <label for="product_type">Product Type</label>
-         <select id="product_type" name="product_type" required>
+         <select id="product_type" name="product_type"  >
             <option value="" selected disabled>Select a category first</option>
          </select>
-         <span class="error">*<?php echo product_type_error ?>
+         <span class="error">*<?php echo $product_type_error ?? ''; ?>
 
          <label for="price">Price</label>
-         <input type="number" id="price" name="price" step="0.01" required>
-         <span class="error">*<?php echo price_error ?>
+         <input type="number" id="price" name="price" step="0.01"  >
+         <span class="error">*<?php echo $price_error ?? ''; ?>
 
          <label for="size">Size</label>
-          <select id="size" name="size" required>
+          <select id="size" name="size"  >
             <option value="" selected disabled>Select Size</option>
             <option value="Extra Small">Extra Small</option>
             <option value="Small">Small</option>
@@ -83,10 +83,10 @@
             <option value="Large">Large</option>
             <option value="Extra Large">Extra Large</option>
           </select>
-          <span class="error">*<?php echo size_error ?>
+          <span class="error">*<?php echo $size_error ?? ''; ?>
 
          <label for="colour">Colour</label>
-          <select id="colour" name="colour" required>
+          <select id="colour" name="colour"  >
             <option value="" selected disabled>Select Colour</option>
             <option value="Black">Black</option>
             <option value="White">White</option>
@@ -99,19 +99,19 @@
             <option value="Brown">Brown</option>
             <option value="Grey">Grey</option>
           </select>
-          <span class="error">*<?php echo colour_error ?>
+          <span class="error">*<?php echo $colour_error ?? ''; ?>
 
          <label for="stock">Stock</label>
-         <input type="number" id="stock" name="stock" required>
-         <span class="error">*<?php echo stock_error ?>
+         <input type="number" id="stock" name="stock"  >
+         <span class="error">*<?php echo $stock_error ?? ''; ?>
 
          <label for="description">Description</label>
-         <textarea id="description" name="description" required></textarea>
-         <span class="error">*<?php echo description_error ?>
+         <textarea id="description" name="description"  ></textarea>
+         <span class="error">*<?php echo $description_error ?? ''; ?>
 
          <label for="image">Product Image</label>
-         <input type="file" id="product_image" name="product_image" required>
-         <span class="error">*<?php echo product_image_error ?>
+         <input type="file" id="product_image" name="product_image"  >
+         <span class="error">*<?php echo $product_image_error ?? ''; ?>
 
          <button type="submit">Add Product</button>
         </form>
@@ -139,14 +139,14 @@
                     <td><?php echo $row["ProductID"]; ?></td>
                     <td>
                         <img
-                            src="uploads/<?php echo $row["Image"]; ?>"
+                            src="<?php echo $row["Product_Image"]; ?>"
                             width="60"
                             alt="Product image">
                     </td>
 
                     <td><?php echo $row["Name"]; ?></td>
                     <td><?php echo $row["Category"]; ?></td>
-                    <td><?php echo $row["Subcategory"]; ?></td>
+                    <td><?php echo $row["Product_Type"]; ?></td>
                     <td>R<?php echo $row["Price"]; ?></td>
                     <td><?php echo $row["Stock"]; ?></td>
 

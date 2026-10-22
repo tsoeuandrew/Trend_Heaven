@@ -1,13 +1,13 @@
 <?php include "db.php";   // Connect to the database using db.php.
 
  // Get product information sent from the form.
- $name = $_post["name"];
- $category = $_post["category"];
- $price = $_post["price"];
- $size = $_post["size"];
- $colour = $_post["colour"];
- $stock = $_post["stock"];
- $description = $_post["description"];
+ $name = $_POST["name"];
+ $category = $_POST["category"];
+ $price = $_POST["price"];
+ $size = $_POST["size"];
+ $colour = $_POST["colour"];
+ $stock = $_POST["stock"];
+ $description = $_POST["description"];
  $image = "";        // Create an empty image variable in case no image is uploaded.
 
  // Check whether the user selected an image file.

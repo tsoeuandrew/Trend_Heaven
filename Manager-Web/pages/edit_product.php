@@ -3,11 +3,11 @@
  $id = $_GET["id"];      // Get the product ID from the URL, for example: edit_product.php?id=3
 
  // Check if the Update Product button was clicked.
- if (isset($_post["update"])) {
+ if (isset($_POST["update"])) {
     // Get the edited values submitted from the form.
-    $name = $_post["name"];
-    $price = $_post["price"];
-    $stock = $_post["stock"];
+    $name = $_POST["name"];
+    $price = $_POST["price"];
+    $stock = $_POST["stock"];
 
     // SQL query to update the selected product.
     $sql = "UPDATE Products
@@ -53,20 +53,20 @@ $sql = "SELECT * FROM Products WHERE ProductID = ?";
             type="text"
             name="name"
             value="<?php echo htmlspecialchars($product["Name"]); ?>"
-            required>
+             >
 
         <input
             type="number"
             name="price"
             step="0.01"
             value="<?php echo $product["Price"]; ?>"
-            required>
+             >
 
         <input
             type="number"
             name="stock"
             value="<?php echo $product["Stock"]; ?>"
-            required>
+             >
 
         <button type="submit" name="update">Update Product</button>
     </form>

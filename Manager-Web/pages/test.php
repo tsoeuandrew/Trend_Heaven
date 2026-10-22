@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
  </head>
 <body>
-    <Form method="post" action="<?php echo $_server['php_self'];?>">
+    <Form method="POST" action="<?php echo $_server['php_self'];?>">
         <label for="name"> Name</label>
         <input type="text" id="name" name="name >
         <label for="surname"> Surname</label>

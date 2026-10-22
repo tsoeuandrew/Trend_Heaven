@@ -14,13 +14,13 @@
       <h1>Welcome Back</h1>
       <h2>Login to your account</h2>
 
-        <form method="post">
+        <form method="POST">
          <label for="username">Username</label>
-         <input type="text" id="username" placeholder="Enter your username" required>
+         <input type="text" id="username" placeholder="Enter your username"  >
          <span class="error">*<?php echo username_error ?>
 
          <label for="password">Password</label>
-         <input type="password"  id="password"  placeholder="Enter your password" required>
+         <input type="password"  id="password"  placeholder="Enter your password"  >
          <span class="error">*<?php echo password_error ?>
 
          <div class="options">

@@ -6,7 +6,7 @@ function showSubcategories() {
     const products = {                  
         Men: ["Jeans", "T-Shirts", "Shirts", "Socks", "Shoes", "Jackets"],
         Women: ["Dresses", "Jeans", "Tops", "Skirts", "Shoes", "Handbags"],
-        Kids: ["T-Shirts", "Jeans", "Socks", "Shoes", "Jackets", "School Wear"],
+        Kids: ["T-Shirts", "Jeans", "Socks", "Shoes", "Jackets", "School-Wear"],
         Home: ["Bedding", "Cushions", "Curtains", "Decor", "Kitchenware"]
     };
 
@@ -19,6 +19,6 @@ function showSubcategories() {
         const option = document.createElement("option");
               option.value = product;
               option.textContent = product;
-            type.appendChild(option);
+            product_type.appendChild(option);
     });
 }
