@@ -7,17 +7,18 @@
     $description_error = $size_error = $colour_error = $stock_error = $category_error = $price_error =  $product_type_error = $product_image_error = "";
 
 function validate_user(){
+    
     if ($server["request_method"] = "post") {
-        $id_number = $_post['id_number'];
-        $name = $_post['name'];
-        $username = $_post['username'];
-        $surname = $_post['surname'];
-        $mobile_number = $_post['mobile_number'];
-        $email = $_post['email'];
-        $password = $_post['password'];
-        $gender = $_post['gender'];
-        $address = $_post['address'];
-        $date_of_birth = $_post['date_of_birth'];
+        $id_number = $_POST['id_number'];
+        $name = $_POST['name'];
+        $username = $_POST['username'];
+        $surname = $_POST['surname'];
+        $mobile_number = $_POST['mobile_number'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $gender = $_POST['gender'];
+        $address = $_POST['address'];
+        $date_of_birth = $_POST['date_of_birth'];
 
         if (empty($name)) {
          $name_error = "Name Required";
@@ -53,11 +54,11 @@ function validate_user(){
         }
         else{validate_user($email);}
 
-        if (empty($_post["mobile_number"])) {
+        if (empty($mobile_number)) {
          $mobile_number = "Mobile Number Required";
         }
         elseif (!preg_match("/^0[0-9]{9}+$",$mobile_number)) {
-         $mobile_error = "Number Must Contain Only Numbers";
+         $mobile_number_error = "Number Must Contain Only Numbers";
         }
         else{validate_user($mobile_number);}
 
@@ -74,8 +75,8 @@ function validate_user(){
 
 function validate_login(){
     if ($server["request_method"] = "post") {
-        $username = $_post['username'];
-        $password = $_post['password'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
         if (empty($username)) {
          $username = "Userame Required";
@@ -91,15 +92,6 @@ function validate_login(){
 
 function validate_product(){
     if ($server["request_method"] = "post") {
-        $name = $name = $_post['name'];
-        $description = $_post['description'];
-        $size = $_post['size'];
-        $colour = $_post['colour'];
-        $stock  = $_post['stock'];
-        $category = $_post['category'];
-        $price = $_post['price'];
-        $product_type = $_post['product_type'];
-        $product_image = $_post['product_image'];
         $name = $name = $_POST['name'];
         $description = $_POST['description'];
         $size = $_POST['size'];
