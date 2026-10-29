@@ -1,4 +1,3 @@
--- Active: 1788179847122@@127.0.0.1@3306@trend_heaven
 <?php require_once "db.php";
   require_once "functions.php";
   validate_product();
@@ -10,7 +9,7 @@
     <meta charset="UTF-8">
     <title>Trend Heaven-Admin</title>
     <script src="../javascript/admin.js"></script>
-    <link rel="icon" type="image/x-icon" href="../../image/icon/favicon.png">
+    <link rel="icon" type="image/x-icon" href="../../images/icon/favicon.png">
     <link rel="stylesheet" href="../style/admin.css">
     <meta name="author" content="Tsoeu Thabiso Andrew">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +19,7 @@
    <header>
     <div class="top-header">
       <div class="logo">
-        <img src="../../image/icon/favicon.png" alt="Trend Heaven Logo">
+        <img src="../../images/icon/favicon.png" alt="Trend Heaven Logo">
       </div>
       <div class="search-box">
         <input type="search" placeholder="Search products...">
@@ -108,7 +107,6 @@
 
          <label for="description">Description</label>
          <textarea id="description" name="description"  ></textarea>
-         <span class="error">*<?php echo $description_error ?? ''; ?>
 
          <label for="image">Product Image</label>
          <input type="file" id="product_image" name="product_image"  >
@@ -140,7 +138,7 @@
                     <td><?php echo $row["ProductID"]; ?></td>
                     <td>
                         <img
-                            src="<?php echo $row["Product_Image"]; ?>"
+                            src="../../<?php echo $row["Product_Image"]; ?>"
                             width="60"
                             alt="Product image">
                     </td>

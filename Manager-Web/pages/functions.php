@@ -129,10 +129,6 @@ function validate_product(){
          $stock_error = "Stock Required";
         }
 
-        if (empty($description)) {
-         $description_error = "Description Required";
-        }
-
         if (empty($product_image)) {
          $product_image_error = "Product Image Required";
         }
@@ -142,7 +138,7 @@ function validate_product(){
         ================================================================================= */
         if (empty($name_error) &&  empty($category_error) && empty($product_type_error) && 
             empty($price_error) && empty($size_error) && empty($colour_error) &&
-            empty($stock_error) && empty($description_error) && empty($product_image_error)) {
+            empty($stock_error) && empty($product_image_error)) {
             insert_into_products();
         }
     }
@@ -151,15 +147,24 @@ function validate_product(){
 function insert_into_products(){
     global $conn;
     global $name, $description, $size, $colour, $stock, $category, $price, $product_type, $product_image;
-    global $name_error, $description_error, $size_error, $colour_error, $stock_error, $category_error, $price_error, $product_type_error, $product_image_error;
+    global $name_error, $size_error, $colour_error, $stock_error, $category_error, $price_error, $product_type_error, $product_image_error;
 
-    $folder = "images/" . strtolower($category) . "/" . strtolower($product_type) . "/";
-    if (!is_dir($folder)) {
-        mkdir($folder, 0777, true);
+    //Folder to save image on the PC
+    $folder_fs = __DIR__ . "/../../images/" . strtolower($category) . "/" . strtolower($product_type) . "/";
+    //Folder that the database will look fo for .  my sql cannot look for ../ or _DIR_ it will cause a bug or wrong location
+    $folder_db = "images/" . strtolower($category) . "/" . strtolower($product_type) . "/";
+    //Create folder if it does not exist
+    if (!is_dir($folder_fs)) {
+        mkdir($folder_fs, 0777, true);
     }
 
-    $product_image = $folder . time() . "_" . $_FILES['product_image']['name'];
-    move_uploaded_file($_FILES['product_image']['tmp_name'], $product_image);
+    $file_name = time() . "_" . $_FILES['product_image']['name'];
+    
+    // Save physical file to ROOT/images/
+    move_uploaded_file($_FILES['product_image']['tmp_name'], $folder_fs . $file_name);
+
+    // Save short path in DB
+    $product_image = $folder_db . $file_name;
 
     $sql = "insert into Products 
                 (Name, Category, Product_Type, Price, Size, Colour, 
