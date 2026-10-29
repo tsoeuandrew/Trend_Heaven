@@ -88,7 +88,7 @@ function validate_login(){
 
 function validate_product(){
     global $name, $description, $size, $colour, $stock, $category, $price, $product_type, $product_image;
-    global $name_error, $description_error, $size_error, $colour_error, $stock_error, $category_error, $price_error, $product_type_error, $product_image_error;
+    global $name_error, $size_error, $colour_error, $stock_error, $category_error, $price_error, $product_type_error, $product_image_error;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name = $_POST['name'];
