@@ -1,3 +1,4 @@
+-- Active: 1788179847122@@127.0.0.1@3306@trend_heaven
 <?php require_once "db.php";
   require_once "functions.php";
   validate_product();
