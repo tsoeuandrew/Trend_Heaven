@@ -1,7 +1,7 @@
 -- Active: 1788179847122@@127.0.0.1@3306@trend_heaven
 use Trend_Heaven;
  CREATE TABLE if NOT exists Admins (
-            AdminID int NOT NULL UNIQUE PRIMARY KEY,
+            AdminID VARCHAR(13) NOT NULL UNIQUE PRIMARY KEY,
             Name varchar(50) NOT NULL,
             Surname varchar(50) NOT NULL,
             Gender  VARCHAR(20) NOT NULL,
@@ -9,19 +9,19 @@ use Trend_Heaven;
             Address VARCHAR(128) NOT NULL,
             Username VARCHAR(50) NOT NULL,
             Email VARCHAR(50) NOT NULL,
-            Mobile_Number INT(10) NOT NULL,
+            Mobile_Number VARCHAR (10) NOT NULL,
             Password VARCHAR (64) NOT NULL
  );
  CREATE TABLE if NOT exists Customers (
-            CustomerID int NOT NULL UNIQUE PRIMARY KEY,
-            Name varchar(50) NOT NULL,
-            Surname varchar(50) NOT NULL,
+            CustomerID VARCHAR (13) NOT NULL UNIQUE PRIMARY KEY,
+            Name VARCHAR(50) NOT NULL,
+            Surname VARCHAR(50) NOT NULL,
             Gender  VARCHAR(20) NOT NULL,
             Date_of_Birth DATE NOT NULL,
             Address VARCHAR(128)NOT NULL,
             Username VARCHAR(50) NOT NULL,
             Email VARCHAR(50) NOT NULL,
-            Mobile_Number INT(10) NOT NULL,
+            Mobile_Number VARCHAR (10) NOT NULL,
             Password VARCHAR (64) NOT NULL
  );  
 

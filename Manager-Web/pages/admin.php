@@ -1,4 +1,4 @@
-<?php require_once "db.php";
+<?php require_once "../../db.php";
   require_once "functions.php";
   validate_product();
 ?>

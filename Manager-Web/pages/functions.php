@@ -183,7 +183,7 @@ function insert_into_users(){
     global $customer_id_error, $name_error, $surname_error, $mobile_number_error, $email_error, $username_error, $password_error, $gender_error, $address_error, $date_of_birth_error;
 
     $sql = "insert into Customers
-                (CustomerID, Name, , Surname, Gender, Date_of_Birth, Address, 
+                (CustomerID, Name, Surname, Gender, Date_of_Birth, Address, 
                  Username, Email, Mobile_Number, Password)
             values 
                 ('$customer_id','$name', '$surname', '$gender', '$date_of_birth', '$address', 
