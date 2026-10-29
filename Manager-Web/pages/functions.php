@@ -84,7 +84,7 @@ function validate_login(){
          $password_error = "password Required";
         }    
     }
-}
+}   
 
 function validate_product(){
     global $name, $description, $size, $colour, $stock, $category, $price, $product_type, $product_image;
