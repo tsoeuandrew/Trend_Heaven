@@ -1,5 +1,4 @@
 -- Active: 1788179847122@@127.0.0.1@3306@trend_heaven
-CREATE DATABASE if NOT exists Trend_Heaven;
 use Trend_Heaven;
  CREATE TABLE if NOT exists Customers (
             CustomerID int NOT NULL auto_increment PRIMARY KEY,
