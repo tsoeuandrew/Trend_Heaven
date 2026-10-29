@@ -26,7 +26,7 @@ use Trend_Heaven;
             Description TEXT NOT NULL,
             Product_Image VARCHAR(255) NOT NULL
  );  
-
+ 
    CREATE TABLE if NOT exists Orders (
             Name VARCHAR(50) NOT NULL,
             CustomerID int NOT NULL,
