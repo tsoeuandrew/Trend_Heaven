@@ -40,10 +40,10 @@ use Trend_Heaven;
  
    CREATE TABLE if NOT exists Orders (
             Name VARCHAR(50) NOT NULL,
-            CustomerID int NOT NULL,
+            CustomerID VARCHAR(13) NOT NULL,
             ProductID int NOT NULL,
             OrderID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
             Order_Date DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (CustomerID) REFERENCES Customers(customerID),
+            FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
             FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
  ); 

@@ -44,22 +44,26 @@
     </header>
 
     <h2>Men's Products</h2>
-   <div class="grid">
-  <?php
-  $result = $conn->query("SELECT ProductID, Name, Price, Product_Image FROM Products WHERE Category='Men'");
 
-  if ($result && $result->num_rows > 0) {
-    while($row = $result->fetch_assoc()){
-  ?>
-  <div class="card">
-    <a href="product.php?id=<?php echo $row['ProductID']; ?>">
-      <!-- add ../ to get to image folder -->
-      <img src="../../Admin/uploads/<?php echo $row['Product_Image']; ?>" alt="<?php echo $row['Name']; ?>" style="width:100%; height:200px; object-fit:cover;">
-    </a>
-    <h3><?php echo $row['Name']; ?></h3>
-    <p>R <?php echo $row['Price']; ?></p>
-  </div>
-  <?php } } else { echo "<p>No products</p>"; } ?>
-</div>
+    <div class="grid"> <?php 
+     // Retrieve men's products from the database. 
+     $result = $conn->query(" SELECT ProductID, Name, Price, Product_Image 
+     FROM Products WHERE Category = 'Men' "); 
+     
+     if ($result && $result->num_rows > 0) { 
+        // Display each product. 
+        while ($row = $result->fetch_assoc()) { ?>
+          <div class="card"> 
+            <a href="product.php?id=<?php echo $row['ProductID']; ?>"> 
+                <img src="../../<?php echo $row['Product_Image']; ?>" alt="<?php echo $row['Name']; ?>
+                " style="width:100%; height:200px; object-fit:cover;" >
+            </a> 
+                <h3><?php echo $row['Name']; ?></h3> 
+                <p>R <?php echo number_format($row['Price'], 2); ?></p> 
+         </div> <?php
+        }
+     } else { echo "<p>No products available.</p>"; } ?> 
+    </div>
+
  </body>
 </html>

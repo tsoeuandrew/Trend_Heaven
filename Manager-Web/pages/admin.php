@@ -109,8 +109,7 @@
          <textarea id="description" name="description"  ></textarea>
 
          <label for="image">Product Image</label>
-         <input type="file" id="product_image" name="product_image"  >
-         <span class="error">*<?php echo $product_image_error ?? ''; ?>
+         <input type="file" id="product_image" name="product_image" >
 
          <button type="submit">Add Product</button>
         </form>
