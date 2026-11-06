@@ -4,7 +4,7 @@
  <head>
    <meta charset="UTF-8">                                                          <!--text forwhole document-->
    <title>Trend Heaven | Men </title>                                                    <!--web name-->
-   <script src="../javascript/men.js"defer></script>                              <!-- style of page and locotion of sheet-->
+   <script src="../javascript/men.js" defer></script>                              <!-- style of page and locotion of sheet-->
    <link rel="icon" type="image/x-icon" href="../../images/icon/favicon.png">                           <!--favicon-->
    <link rel="stylesheet" href="../style/men.css">  
    <meta name="author" content="Tsoeu Thabiso Andrew">                             <!--author of page-->
@@ -30,39 +30,39 @@
        </div>
      </div>
 
-    <!-- Navigation panel -->
-    <nav>
-     <a href="home.html">Home</a>
-     <a href="men/home.html">Men</a>
-     <a href="women/home.html">Women</a>
-     <a href="kids/home.html">Kids</a>
-     <a href="accessories.html">Accessories</a>
-     <a href="sale.html">Sale</a>
-     <a href="contact.html">Contact</a>
-     <a href="about.html">About Us</a>
-    </nav>
+     <!-- Navigation panel -->
+     <nav>
+      <a href="../home.html">Home</a>
+      <a href="men.php">Men</a>
+      <a href="../women/women.php">Women</a>
+      <a href="../kids/kids.php">Kids</a>
+      <a href="../accessories.php">Accessories</a>
+      <a href="../sale.php">Sale</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../about.html">About Us</a>
+     </nav>
     </header>
 
     <h2>Men's Products</h2>
 
     <div class="grid"> <?php 
      // Retrieve men's products from the database. 
-     $result = $conn->query(" SELECT ProductID, Name, Price, Product_Image 
-     FROM Products WHERE Category = 'Men' "); 
+     $result = $conn->query(" SELECT p.ProductID, p.Name, p.Price, pi.Image_path AS Product_Image 
+              FROM Products p LEFT JOIN product_images pi ON pi.ProductID = p.ProductID AND pi.is_main = 1 
+              WHERE p.Category = 'Men' "); 
      
-     if ($result && $result->num_rows > 0) { 
+      if ($result && $result->num_rows > 0) { 
         // Display each product. 
         while ($row = $result->fetch_assoc()) { ?>
           <div class="card"> 
             <a href="product.php?id=<?php echo $row['ProductID']; ?>"> 
-                <img src="../../<?php echo $row['Product_Image']; ?>" alt="<?php echo $row['Name']; ?>
-                " style="width:100%; height:200px; object-fit:cover;" >
+                <img src="../../<?php echo $row['Product_Image']; ?>" alt="<?php echo $row['Name']; ?>" style="width:100%; height:200px; object-fit:cover;" >
             </a> 
                 <h3><?php echo $row['Name']; ?></h3> 
                 <p>R <?php echo number_format($row['Price'], 2); ?></p> 
          </div> <?php
         }
-     } else { echo "<p>No products available.</p>"; } ?> 
+      } else { echo "<p>No products available.</p>"; } ?> 
     </div>
 
  </body>

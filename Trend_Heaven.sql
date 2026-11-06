@@ -1,3 +1,4 @@
+CREATE DATABASE IF NOT EXISTS Trend_Heaven;
 USE Trend_Heaven;
 
 CREATE TABLE IF NOT EXISTS Admins (
@@ -28,14 +29,12 @@ CREATE TABLE IF NOT EXISTS Customers (
 
 CREATE TABLE IF NOT EXISTS Products (
     ProductID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(50) NOT NULL,
+    Name VARCHAR(100) NOT NULL,
     Category VARCHAR(50) NOT NULL,
     Product_Type VARCHAR(50) NOT NULL,
     Price DECIMAL(10,2) NOT NULL,
-    Size VARCHAR(20) NOT NULL,
-    Colour VARCHAR(30) NOT NULL,
-    Stock INT NOT NULL,
-    Description TEXT NOT NULL
+    Description TEXT NOT NULL,
+    Created_At DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS product_images (
@@ -47,14 +46,28 @@ CREATE TABLE IF NOT EXISTS product_images (
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS Product_Variants (
+    VariantID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ProductID INT NOT NULL,
+    Colour VARCHAR(30) NOT NULL,
+    Size VARCHAR(20) NOT NULL,
+    Stock INT NOT NULL DEFAULT 0,
+    SKU VARCHAR(50) NOT NULL, -- e.g. JEANS-BLUE-M, warehouse code
+    Price DECIMAL(10,2) NULL, -- NULL = use Products.Price, else override
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE,
+    UNIQUE KEY unique_variant (ProductID, Colour, Size) -- prevents duplicate Blue-M
+);
+
 CREATE TABLE IF NOT EXISTS Orders (
     OrderID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     CustomerID VARCHAR(13) NOT NULL,
     ProductID INT NOT NULL,
+    VariantID INT NOT NULL,
     Quantity INT NOT NULL DEFAULT 1,
     Price DECIMAL(10,2) NOT NULL,
     Order_Date DATETIME DEFAULT CURRENT_TIMESTAMP,
     Status VARCHAR(20) DEFAULT 'Pending',
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+    FOREIGN KEY (VariantID) REFERENCES Product_Variants(VariantID)
 );

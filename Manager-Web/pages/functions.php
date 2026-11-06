@@ -3,8 +3,8 @@
     //define variables and set to empty value
     $customer_id = $name = $surname = $mobile_number = $email = $username = $password =  $gender = $address = $date_of_birth ="";
     $customer_id_error = $name_error = $surname_error = $mobile_number_error = $email_error = $username_error = $password_error =  $gender_error = $address_error = $date_of_birth_error ="";
-    $description = $size = $colour = $stock  = $category = $price = $product_type = $product_image ="";
-    $description_error = $size_error = $colour_error = $stock_error = $category_error = $price_error =  $product_type_error = $product_image_error = "";
+    $description = $size = $colour = $sku = $stock  = $category = $price = $product_type = $product_image ="";
+    $description_error = $size_error = $colour_error = $sku_error = $stock_error = $category_error = $price_error =  $product_type_error = $product_image_error = "";
  
 function validate_user(){
     global $customer_id, $name, $surname, $mobile_number, $email, $username, $password, $gender, $address, $date_of_birth;
@@ -87,19 +87,28 @@ function validate_login(){
 }
 
 function validate_product(){
-    global $name, $description, $size, $colour, $stock, $category, $price, $product_type, $product_image;
-    global $name_error, $size_error, $colour_error, $stock_error, $category_error, $price_error, $product_type_error, $product_image_error;
+    global $name, $description, $size, $colour,  $sku, $stock, $category, $price, $product_type, $product_image;
+    global $name_error, $size_error, $colour_error,  $sku_error, $stock_error, $category_error, $price_error, $product_type_error, $product_image_error;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $size = $_POST['size'];
-        $colour = $_POST['colour'];
-        $stock  = $_POST['stock'];
-        $category = $_POST['category'];
-        $price = $_POST['price'];
-        $product_type = $_POST['product_type'];
+        if (!isset($_POST['add_product'])) return;
+        $name = $_POST['name']?? '';
+        $description = $_POST['description']?? '';
+        $size = $_POST['size']?? '';
+        $colour = $_POST['colour']?? '';
+        $sku = $_POST['sku'] ?? '';
+        $stock  = $_POST['stock']?? '';
+        $category = $_POST['category']?? '';
+        $price = $_POST['price']?? '';
+        $product_type = $_POST['product_type']?? '';
         $product_image = $_FILES['product_image'] ?? null;
+
+        // Auto-generate SKU if empty
+        if (empty($sku) && !empty($name) && !empty($colour) && !empty($size)) {
+            $clean_name = strtoupper(str_replace(' ', '-', trim($name)));
+            $clean_colour = strtoupper(trim($colour));
+            $sku = $clean_name . '-' . $clean_colour . '-' . $size;
+        }
 
         if (empty($name)) {
          $name_error = "Name Required";
@@ -119,8 +128,8 @@ function validate_product(){
         if (empty($colour)) {
          $colour_error = "Colour Required";
         }
-        if (empty($stock)) {
-         $stock_error = "Stock Required";
+        if ($stock === '' || $stock === null) {
+            $stock_error = "Stock Required";
         }
 
         /* =============================================================================
@@ -172,7 +181,7 @@ function validate_product(){
          -           add product under validate - only if no errors
         ================================================================================= */
         if (empty($name_error) &&  empty($category_error) && empty($product_type_error) && 
-            empty($price_error) && empty($size_error) && empty($colour_error) &&
+            empty($price_error) && empty($size_error) && empty($colour_error) && 
             empty($stock_error) && empty($product_image_error)) {
             insert_into_products();
         }
@@ -181,8 +190,7 @@ function validate_product(){
 
 function insert_into_products(){
     global $conn;
-    global $name, $description, $size, $colour, $stock, $category, $price, $product_type, $product_image;
-    global $name_error, $size_error, $colour_error, $stock_error, $category_error, $price_error, $product_type_error, $product_image_error;
+    global $name, $description, $size, $colour, $stock, $sku, $category, $price, $product_type, $product_image;
 
     //Folder to save image on the PC
     $folder_fs = __DIR__ . "/../../images/" . strtolower($category) . "/" . strtolower($product_type) . "/";
@@ -193,13 +201,20 @@ function insert_into_products(){
         mkdir($folder_fs, 0777, true);
     }
 
-    //Insert product without images
-    $stmt = $conn->prepare("INSERT INTO Products (Name, Category, Product_Type, Price, Size, Colour, Stock, Description)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)"); 
-    $stmt->bind_param("sssdssis", $name, $category, $product_type, $price, $size, $colour, $stock, $description);
+    // 1. Insert PRODUCT 
+    $stmt = $conn->prepare("INSERT INTO Products (Name, Category, Product_Type, Price, Description)
+                   VALUES (?, ?, ?, ?, ?)"); 
+    $stmt->bind_param("sssds", $name, $category, $product_type, $price, $description);
     $stmt->execute();
-    $product_id = $conn->insert_id;  //get latest value of product id
+    $product_id = $conn->insert_id;
     $stmt->close();
+
+    // 2. Insert VARIANT - Colour, Size, Stock and SKU
+    $stmt_v = $conn->prepare("INSERT INTO Product_Variants (ProductID, Colour, Size, Stock, SKU, Price)
+                   VALUES (?, ?, ?, ?, ?, NULL)");
+    $stmt_v->bind_param("issis", $product_id, $colour, $size, $stock, $sku);
+    $stmt_v->execute();
+    $stmt_v->close();
 
     foreach ($product_image['name'] as $key => $filename) {
         if ($product_image['error'][$key] == 4) continue;    // Skip empty slots (user clicked browse but cancelled)

@@ -48,128 +48,129 @@
     </nav>
     </header>
 
-    <Main>
-        <form method="POST" enctype="multipart/form-data">
-          <label for="name">Product Name</label>
-         <input type="text" id="name" name="name"  >
-         <span class="error">*<?php echo $name_error ?? ''; ?></span>
+    <main>
+      <?php if (isset($_GET['added']) && $_GET['added'] == 1) { 
+        $added_name = htmlspecialchars($_GET['name'] ?? 'Product');
+      ?>
+        <div class="alert-success" id="success-message" data-product-name="<?php echo $added_name; ?>">
+          ✅ <?php echo $added_name; ?> added successfully!
+        </div>
+        <?php } ?>
 
-         <label for="category">Category</label>
-         <select id="category" name="category"   onchange="showSubcategories()">
-             <option value="" selected disabled>Select Category</option>
-             <option value="Men">Men</option>
-             <option value="Women">Women</option>
-             <option value="Kids">Kids</option>
-             <option value="Home">Home</option>
-         </select>
-         <span class="error">*<?php echo $category_error ?? ''; ?></span>
+      <form method="POST" enctype="multipart/form-data">
+       <label for="name">Product Name</label>
+       <input type="text" id="name" name="name">
+       <span class="error">*<?php echo $name_error ?? ''; ?></span>
 
-         <label for="product_type">Product Type</label>
-         <select id="product_type" name="product_type"  >
-            <option value="" selected disabled>Select a category first</option>
-         </select>
-         <span class="error">*<?php echo $product_type_error ?? ''; ?></span>
+       <label for="category">Category</label>
+       <select id="category" name="category" onchange="showSubcategories()">
+          <option value="" selected disabled>Select Category</option>
+          <option value="Men">Men</option>
+          <option value="Women">Women</option>
+          <option value="Kids">Kids</option>
+          <option value="Home">Home</option>
+       </select>
+       <span class="error">*<?php echo $category_error ?? ''; ?></span>
 
-         <label for="price">Price</label>
-         <input type="number" id="price" name="price" step="0.01"  >
-         <span class="error">*<?php echo $price_error ?? ''; ?></span>
+       <label for="product_type">Product Type</label>
+       <select id="product_type" name="product_type">
+          <option value="" selected disabled>Select a category first</option>
+       </select>
+       <span class="error">*<?php echo $product_type_error ?? ''; ?></span>
 
-         <label for="size">Size</label>
-          <select id="size" name="size"  >
-            <option value="" selected disabled>Select Size</option>
-            <option value="Extra Small">Extra Small</option>
-            <option value="Small">Small</option>
-            <option value="Medium">Medium</option>
-            <option value="Large">Large</option>
-            <option value="Extra Large">Extra Large</option>
-          </select>
-          <span class="error">*<?php echo $size_error ?? ''; ?></span>
+       <label for="price">Price</label>
+       <input type="number" id="price" name="price" step="0.01">
+       <span class="error">*<?php echo $price_error ?? ''; ?></span>
 
-         <label for="colour">Colour</label>
-          <select id="colour" name="colour"  >
-            <option value="" selected disabled>Select Colour</option>
-            <option value="Black">Black</option>
-            <option value="White">White</option>
-            <option value="Red">Red</option>
-            <option value="Blue">Blue</option>
-            <option value="Green">Green</option>
-            <option value="Yellow">Yellow</option>
-            <option value="Pink">Pink</option>
-            <option value="Purple">Purple</option>
-            <option value="Brown">Brown</option>
-            <option value="Grey">Grey</option>
-          </select>
-          <span class="error">*<?php echo $colour_error ?? ''; ?></span>
+       <label for="size">Size</label>
+       <select id="size" name="size">
+        <option value="" selected disabled>Select Size</option>
+        <option value="XS">Extra Small</option>
+        <option value="S">Small</option>
+        <option value="M">Medium</option>
+         <option value="L">Large</option>
+        <option value="XL">Extra Large</option>
+       </select>
+       <span class="error">*<?php echo $size_error ?? ''; ?></span>
 
-         <label for="stock">Stock</label>
-         <input type="number" id="stock" name="stock"  >
-         <span class="error">*<?php echo $stock_error ?? ''; ?></span>
+       <label for="colour">Colour</label>
+       <select id="colour" name="colour">
+        <option value="" selected disabled>Select Colour</option>
+        <option value="Black">Black</option>
+        <option value="White">White</option>
+        <option value="Red">Red</option>
+        <option value="Blue">Blue</option>
+        <option value="Green">Green</option>
+        <option value="Yellow">Yellow</option>
+        <option value="Pink">Pink</option>
+        <option value="Purple">Purple</option>
+        <option value="Brown">Brown</option>
+        <option value="Grey">Grey</option>
+       </select>
+       <span class="error">*<?php echo $colour_error ?? ''; ?></span>
 
-         <label for="description">Description</label>
-         <textarea id="description" name="description"  ></textarea>
+       <label for="sku">SKU</label>
+       <input type="text" id="sku" name="sku" placeholder="e.g. JEANS-BLUE-M - leave empty to auto-generate">
+       <span class="error">*<?php echo $sku_error ?? ''; ?></span>
 
-         <label for="product_image">Product Image</label>
-         <input type="file" id="product_image" 
-                name="product_image[]"  multiple accept="image/*" >
+       <label for="stock">Stock</label>
+       <input type="number" id="stock" name="stock">
+       <span class="error">*<?php echo $stock_error ?? ''; ?></span>
 
-         <button type="submit" name="add_product">Add Product</button>
-        </form>
+       <label for="description">Description</label>
+       <textarea id="description" name="description"></textarea>
 
-        <h2>Products</h2>
+       <label for="product_image">Product Image</label>
+       <input type="file" id="product_image" name="product_image[]" multiple accept="image/*">
 
-        <table>
-         <tr>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Product Type</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Action</th>
-         </tr>
+       <button type="submit" name="add_product">Add Product</button>
+      </form>
 
-            <?php
-            $result = $conn->query("SELECT * FROM Products");    // Get all products from the Products table.
-            if ($result) {                          // Check whether the query was successful.
-                while ($row = $result->fetch_assoc()) {      // Read and display one product at a time
-                 ?>
-                 <tr>
-                    <td><?php echo $row["ProductID"]; ?></td>
-                    <td>
-                        <img
-                            src="../../<?php echo $row["Product_Image"]; ?>"
-                            width="60"
-                            alt="Product image">
-                    </td>
+      <h2>Products</h2>
+       <table>
+        <tr>
+          <th>ID</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Product Type</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Action</th>
+        </tr>
 
-                    <td><?php echo $row["Name"]; ?></td>
-                    <td><?php echo $row["Category"]; ?></td>
-                    <td><?php echo $row["Product_Type"]; ?></td>
-                    <td>R<?php echo $row["Price"]; ?></td>
-                    <td><?php echo $row["Stock"]; ?></td>
-
-                    <td>
-                        <a href="edit_product.php?id=<?php echo $row["ProductID"]; ?>">
-                             Edit
-                         </a>
-
-                        <a href="delete_product.php?id=<?php echo $row["ProductID"]; ?>"
-                           onclick="return confirm('Are you sure you want to delete this product?');">
-                            Delete
-                        </a>
-                    </td>
-                 </tr>
+        <?php
+          $result = $conn->query("
+          SELECT p.*,
+            (SELECT Image_path FROM product_images WHERE ProductID = p.ProductID AND is_main = 1 LIMIT 1) AS main_image,
+            (SELECT SUM(Stock) FROM Product_Variants WHERE ProductID = p.ProductID) AS total_stock
+            FROM Products p ORDER BY p.ProductID DESC
+            ");
+          if ($result) {
+            while ($row = $result->fetch_assoc()) {
+              ?>
+              <tr>
+                <td><?php echo $row["ProductID"]; ?></td>
+                <td>
+                  <?php if (!empty($row["main_image"])) { ?>
+                    <img src="../../<?php echo $row["main_image"]; ?>" width="60" alt="Product image">
+                      <?php } else { echo "No image"; } ?>
+                </td>
+                <td><?php echo $row["Name"]; ?></td>
+                <td><?php echo $row["Category"]; ?></td>
+                <td><?php echo $row["Product_Type"]; ?></td>
+                <td>R<?php echo $row["Price"]; ?></td>
+                <td><?php echo $row["total_stock"] ?? 0; ?></td>
+                <td>
+                  <a href="edit_product.php?id=<?php echo $row["ProductID"]; ?>">Edit</a>
+                  <a href="delete_product.php?id=<?php echo $row["ProductID"]; ?>" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                </td>
+              </tr>
                  <?php
-                }       // End while loop.
-            } // End successful-query check.
+            }
+          }
                  ?>
         </table>
-    </main>  
+    </main>
   </body>
 </html>
-
-
-
-
-

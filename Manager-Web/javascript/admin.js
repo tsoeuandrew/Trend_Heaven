@@ -22,3 +22,11 @@ function showSubcategories() {
             product_type.appendChild(option);
     });
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const msg = document.getElementById("success-message");
+    if (msg) {
+        const name = msg.getAttribute("data-product-name");
+        alert(name + " added successfully!");
+    }
+});
