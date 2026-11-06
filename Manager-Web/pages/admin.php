@@ -52,7 +52,7 @@
         <form method="POST" enctype="multipart/form-data">
           <label for="name">Product Name</label>
          <input type="text" id="name" name="name"  >
-         <span class="error">*<?php echo $name_error ?? ''; ?>
+         <span class="error">*<?php echo $name_error ?? ''; ?></span>
 
          <label for="category">Category</label>
          <select id="category" name="category"   onchange="showSubcategories()">
@@ -62,17 +62,17 @@
              <option value="Kids">Kids</option>
              <option value="Home">Home</option>
          </select>
-         <span class="error">*<?php echo $category_error ?? ''; ?>
+         <span class="error">*<?php echo $category_error ?? ''; ?></span>
 
          <label for="product_type">Product Type</label>
          <select id="product_type" name="product_type"  >
             <option value="" selected disabled>Select a category first</option>
          </select>
-         <span class="error">*<?php echo $product_type_error ?? ''; ?>
+         <span class="error">*<?php echo $product_type_error ?? ''; ?></span>
 
          <label for="price">Price</label>
          <input type="number" id="price" name="price" step="0.01"  >
-         <span class="error">*<?php echo $price_error ?? ''; ?>
+         <span class="error">*<?php echo $price_error ?? ''; ?></span>
 
          <label for="size">Size</label>
           <select id="size" name="size"  >
@@ -83,7 +83,7 @@
             <option value="Large">Large</option>
             <option value="Extra Large">Extra Large</option>
           </select>
-          <span class="error">*<?php echo $size_error ?? ''; ?>
+          <span class="error">*<?php echo $size_error ?? ''; ?></span>
 
          <label for="colour">Colour</label>
           <select id="colour" name="colour"  >
@@ -99,19 +99,20 @@
             <option value="Brown">Brown</option>
             <option value="Grey">Grey</option>
           </select>
-          <span class="error">*<?php echo $colour_error ?? ''; ?>
+          <span class="error">*<?php echo $colour_error ?? ''; ?></span>
 
          <label for="stock">Stock</label>
          <input type="number" id="stock" name="stock"  >
-         <span class="error">*<?php echo $stock_error ?? ''; ?>
+         <span class="error">*<?php echo $stock_error ?? ''; ?></span>
 
          <label for="description">Description</label>
          <textarea id="description" name="description"  ></textarea>
 
-         <label for="image">Product Image</label>
-         <input type="file" id="product_image" name="product_image" >
+         <label for="product_image">Product Image</label>
+         <input type="file" id="product_image" 
+                name="product_image[]"  multiple accept="image/*" >
 
-         <button type="submit">Add Product</button>
+         <button type="submit" name="add_product">Add Product</button>
         </form>
 
         <h2>Products</h2>

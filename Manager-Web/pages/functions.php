@@ -77,7 +77,7 @@ function validate_login(){
         $password = $_POST['password'];
 
         if (empty($username)) {
-         $username = "Userame Required";
+         $username_error = "Userame Required";
         }
 
         if (empty($password)) {
@@ -99,42 +99,77 @@ function validate_product(){
         $category = $_POST['category'];
         $price = $_POST['price'];
         $product_type = $_POST['product_type'];
-        $product_image = $_FILES['product_image']['name'];
+        $product_image = $_FILES['product_image'] ?? null;
 
         if (empty($name)) {
          $name_error = "Name Required";
         }
-
         if (empty($category)) {
          $category_error = "Category Required";
         }
-
         if (empty($product_type)) {
          $product_type_error = "Product Type Required";
         }
-
         if (empty($price)) {
          $price_error = "Price Required";
         }
-
         if (empty($size)) {
          $size_error = "Size Required";
         }
-
         if (empty($colour)) {
          $colour_error = "Colour Required";
         }
-
         if (empty($stock)) {
          $stock_error = "Stock Required";
         }
 
-        if (empty($product_image)) {
-         $product_image_error = "Product Image Required";
+        /* =============================================================================
+        -             MULTIPLE IMAGE VALIDATRIONS
+        ================================================================================= */
+        $allowed_ext = ['jpg', 'jpeg', 'png', 'webp'];
+        $max_size = 5 * 1024 * 1024;        //max = 5MB
+        $has_file = false;   // BY defoult no image is selected  
+
+        if (isset($product_image['name']) && is_array($product_image['name'])) { //check: does $_FILES['product_image']['name'] exist and is it an array?
+            foreach ($product_image['name'] as $key => $filename) {             // Loop through every file name the user picked
+                if ($product_image['error'][$key] !== 4 && $filename !== '') {   //if file was picked
+                    $has_file = true;       //file was picked
+                    break;
+                }
+            }
         }
 
+        if (!$has_file) {        //if no image was picked
+            $product_image_error = "Product Image Required";
+        } else {
+            // Now check EACH file user picked
+            foreach ($product_image['name'] as $key => $filename) {
+
+                //1. Skip empty slots (user clicked but cancelled)
+                if ($product_image['error'][$key] == 4) continue;  
+
+                // 2. Upload error?
+                if ($product_image['error'][$key] !== 0) {
+                  $product_image_error = "Error uploading $filename";
+                   break;
+                }
+
+                // 3. Wrong file type?
+                $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+                if (!in_array($ext, $allowed_ext)) {
+                    $product_image_error = "Only JPG, PNG, WEBP allowed. $filename is .$ext";
+                    break;
+                }
+
+                // 4. Too big?
+                if ($product_image['size'][$key] > $max_size) {
+                    $product_image_error = "$filename is too big. Max 5MB";
+                    break;
+                }
+            }
+        }
         /* =============================================================================
-                    add product under validate - only if no errors
+         -           add product under validate - only if no errors
         ================================================================================= */
         if (empty($name_error) &&  empty($category_error) && empty($product_type_error) && 
             empty($price_error) && empty($size_error) && empty($colour_error) &&
@@ -158,22 +193,40 @@ function insert_into_products(){
         mkdir($folder_fs, 0777, true);
     }
 
-    $file_name = time() . "_" . $_FILES['product_image']['name'];
-    
-    // Save physical file to ROOT/images/
-    move_uploaded_file($_FILES['product_image']['tmp_name'], $folder_fs . $file_name);
+    //Insert product without images
+    $stmt = $conn->prepare("INSERT INTO Products (Name, Category, Product_Type, Price, Size, Colour, Stock, Description)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)"); 
+    $stmt->bind_param("sssdssis", $name, $category, $product_type, $price, $size, $colour, $stock, $description);
+    $stmt->execute();
+    $product_id = $conn->insert_id;  //get latest value of product id
+    $stmt->close();
 
-    // Save short path in DB
-    $product_image = $folder_db . $file_name;
+    foreach ($product_image['name'] as $key => $filename) {
+        if ($product_image['error'][$key] == 4) continue;    // Skip empty slots (user clicked browse but cancelled)
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));   // Get extension in small letters, e.g. "JPG" -> "jpg"
 
-    $sql = "insert into Products 
-                (Name, Category, Product_Type, Price, Size, Colour, 
-                 Stock, Description, Product_Image)
-            values 
-                ('$name', '$category', '$product_type', '$price', '$size', 
-                '$colour', '$stock', '$description', '$product_image')"; 
-    $conn->query($sql);  
+        // Make unique file name so 2 products don't overwrite each other
+        // Example: 1731234567_0_dress_white.jpg
+        // time() = seconds, $key = 0 for first image, 1 for second
+        $new_file_name = time() . "_" . $key . "_" . basename($filename);
+        $full_path_fs = $folder_fs . $new_file_name;   // Full path on PC + short path for DB
+        $full_path_db = $folder_db . $new_file_name;  //hort path for DB
 
+                
+        if (move_uploaded_file($product_image['tmp_name'][$key], $full_path_fs)) {  // Move file from temp folder to your images folder
+                
+         // 0 = clothes-only white, 1 = cropped face
+         $is_main = ($key == 0) ? 1 : 0; // First image (key 0) = main image = 1, rest = 0
+          /* =============================================================================
+            -           Insert into product_images table, NOT Products table
+         ================================================================================= */
+         $stmt2 = $conn->prepare("INSERT INTO product_images (ProductID, Image_path, is_main, sort_order) 
+                        VALUES (?, ?, ?, ?)");
+         $stmt2->bind_param("isii", $product_id, $full_path_db, $is_main, $key);
+         $stmt2->execute();
+         $stmt2->close();
+        }
+    }
     header("Location: admin.php");
     exit;
 }
