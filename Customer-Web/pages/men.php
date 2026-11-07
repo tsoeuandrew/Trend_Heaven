@@ -32,14 +32,13 @@
 
      <!-- Navigation panel -->
      <nav>
-      <a href="../home.html">Home</a>
-      <a href="men.php">Men</a>
-      <a href="../women/women.php">Women</a>
-      <a href="../kids/kids.php">Kids</a>
-      <a href="../accessories.php">Accessories</a>
-      <a href="../sale.php">Sale</a>
-      <a href="../contact.html">Contact</a>
-      <a href="../about.html">About Us</a>
+      <a href="home.html">Home</a>
+      <a href="women/women.php">Women</a>
+      <a href="kids/kids.php">Kids</a>
+      <a href="accessories.php">Accessories</a>
+      <a href="sale.php">Sale</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html">About Us</a>
      </nav>
     </header>
 

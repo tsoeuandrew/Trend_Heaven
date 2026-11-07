@@ -1,6 +1,7 @@
+-- Active: 1788179847122@@127.0.0.1@3306@trend_heaven
 CREATE DATABASE IF NOT EXISTS Trend_Heaven;
 USE Trend_Heaven;
-
+    
 CREATE TABLE IF NOT EXISTS Admins (
     AdminID VARCHAR(13) NOT NULL PRIMARY KEY,
     Name VARCHAR(50) NOT NULL,

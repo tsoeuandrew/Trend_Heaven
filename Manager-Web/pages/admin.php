@@ -68,7 +68,7 @@
           <option value="Men">Men</option>
           <option value="Women">Women</option>
           <option value="Kids">Kids</option>
-          <option value="Home">Home</option>
+          <option value="House">House</option>
        </select>
        <span class="error">*<?php echo $category_error ?? ''; ?></span>
 
