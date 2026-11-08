@@ -8,7 +8,7 @@
  <head>
     <meta charset="UTF-8">
     <title>Trend Heaven-Admin</title>
-    <script src="../javascript/admin.js"></script>
+    <script src="../javascript/admin.js?v=5"></script>
     <link rel="icon" type="image/x-icon" href="../../images/icon/favicon.png">
     <link rel="stylesheet" href="../style/admin.css">
     <meta name="author" content="Tsoeu Thabiso Andrew">
@@ -49,128 +49,161 @@
     </header>
 
     <main>
-      <?php if (isset($_GET['added']) && $_GET['added'] == 1) { 
-        $added_name = htmlspecialchars($_GET['name'] ?? 'Product');
-      ?>
-        <div class="alert-success" id="success-message" data-product-name="<?php echo $added_name; ?>">
-          ✅ <?php echo $added_name; ?> added successfully!
-        </div>
-        <?php } ?>
+      <section class="add-product-section" id="add-product">
+        <h2>Add New Product</h2>
+        <form method="POST" enctype="multipart/form-data">
+         <label for="name">Product Name</label>
+         <input type="text" id="name" name="name">
+         <span class="error">*<?php echo $name_error ?? ''; ?></span>
 
-      <form method="POST" enctype="multipart/form-data">
-       <label for="name">Product Name</label>
-       <input type="text" id="name" name="name">
-       <span class="error">*<?php echo $name_error ?? ''; ?></span>
+         <label for="category">Category</label>
+         <select id="category" name="category" onchange="showSubcategories()">
+           <option value="" selected disabled>Select Category</option>
+           <option value="Men">Men</option>
+           <option value="Women">Women</option>
+           <option value="Kids">Kids</option>
+           <option value="House">House</option>
+         </select>
+         <span class="error">*<?php echo $category_error ?? ''; ?></span>
 
-       <label for="category">Category</label>
-       <select id="category" name="category" onchange="showSubcategories()">
-          <option value="" selected disabled>Select Category</option>
-          <option value="Men">Men</option>
-          <option value="Women">Women</option>
-          <option value="Kids">Kids</option>
-          <option value="House">House</option>
-       </select>
-       <span class="error">*<?php echo $category_error ?? ''; ?></span>
+         <label for="product_type">Product Type</label>
+         <select id="product_type" name="product_type">
+           <option value="" selected disabled>Select a category first</option>
+         </select>
+         <span class="error">*<?php echo $product_type_error ?? ''; ?></span>
 
-       <label for="product_type">Product Type</label>
-       <select id="product_type" name="product_type">
-          <option value="" selected disabled>Select a category first</option>
-       </select>
-       <span class="error">*<?php echo $product_type_error ?? ''; ?></span>
+         <label for="price">Price</label>
+         <input type="number" id="price" name="price" step="2" min="5">
+         <span class="error">*<?php echo $price_error ?? ''; ?></span>
 
-       <label for="price">Price</label>
-       <input type="number" id="price" name="price" step="0.01">
-       <span class="error">*<?php echo $price_error ?? ''; ?></span>
+         <!-- Product status -->
+         <label for="status">Product Status</label>
+         <select name="status" id="status" required>
+           <option value="Draft">Draft</option>
+           <option value="Published">Published</option>
+           <option value="Archived">Archived</option>
+         </select>
 
-       <label for="size">Size</label>
-       <select id="size" name="size">
-        <option value="" selected disabled>Select Size</option>
-        <option value="XS">Extra Small</option>
-        <option value="S">Small</option>
-        <option value="M">Medium</option>
-         <option value="L">Large</option>
-        <option value="XL">Extra Large</option>
-       </select>
-       <span class="error">*<?php echo $size_error ?? ''; ?></span>
+         <label for="description">Description</label>
+         <textarea id="description" name="description" rows="5"></textarea>
 
-       <label for="colour">Colour</label>
-       <select id="colour" name="colour">
-        <option value="" selected disabled>Select Colour</option>
-        <option value="Black">Black</option>
-        <option value="White">White</option>
-        <option value="Red">Red</option>
-        <option value="Blue">Blue</option>
-        <option value="Green">Green</option>
-        <option value="Yellow">Yellow</option>
-        <option value="Pink">Pink</option>
-        <option value="Purple">Purple</option>
-        <option value="Brown">Brown</option>
-        <option value="Grey">Grey</option>
-       </select>
-       <span class="error">*<?php echo $colour_error ?? ''; ?></span>
+         <h3>Product Variations</h3>
+           <p>Add the available colours, sizes and stock quantities.</p>
+         <div id="variant-container">
+          <div class="variant-row">
+           <label>Colour</label>
+           <select name="variants[0][colour]" required>
+            <option value="">Select Colour</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Red">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Green">Green</option>
+            <option value="Yellow">Yellow</option>
+            <option value="Pink">Pink</option>
+            <option value="Purple">Purple</option>
+            <option value="Brown">Brown</option>
+            <option value="Grey">Grey</option>
+            <option value="Default">Default</option>
+           </select>
 
-       <label for="sku">SKU</label>
-       <input type="text" id="sku" name="sku" placeholder="e.g. JEANS-BLUE-M - leave empty to auto-generate">
-       <span class="error">*<?php echo $sku_error ?? ''; ?></span>
+           <label for="size">Size</label>
+           <select name="variants[0][size]" required>
+           <select id="size" name="size">
+            <option value="" selected disabled>Select Size</option>
+            <option value="XS">Extra Small</option>
+            <option value="S">Small</option>
+            <option value="M">Medium</option>
+            <option value="L">Large</option>
+            <option value="XL">Extra Large</option>
+           </select>
 
-       <label for="stock">Stock</label>
-       <input type="number" id="stock" name="stock">
-       <span class="error">*<?php echo $stock_error ?? ''; ?></span>
+           <label>Stock</label>
+           <input type="number" name="variants[0][stock]" min="0" placeholder="Quantity" required>  
+          <div>
+         </div>
+         <button type="button" id="add-variant"> + Add Another Variation </button>
 
-       <label for="description">Description</label>
-       <textarea id="description" name="description"></textarea>
+         <label for="product_image">Product Image</label>
+         <input type="file" id="product_image" name="product_image[]" multiple accept="image/*">
 
-       <label for="product_image">Product Image</label>
-       <input type="file" id="product_image" name="product_image[]" multiple accept="image/*">
+         <button type="submit" name="submit">Add Product</button>
+        </form>
+      </section>
 
-       <button type="submit" name="add_product">Add Product</button>
-      </form>
+      </section>
+      <!-- ================= PRODUCT LIST ================= -->
+      <section class="product-list-section" id="product-list">
+       <h2>Manage Products</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Product Type</th>
+              <th>Price</th>
+              <th>Variants</th>
+              <th>Total Stock</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              <?php if ($result && $result->num_rows > 0): ?>
+              <?php while ($row = $result->fetch_assoc()): ?>
 
-      <h2>Products</h2>
-       <table>
-        <tr>
-          <th>ID</th>
-          <th>Image</th>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Product Type</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Action</th>
-        </tr>
-
-        <?php
-          $result = $conn->query("
-          SELECT p.*,
-            (SELECT Image_path FROM product_images WHERE ProductID = p.ProductID AND is_main = 1 LIMIT 1) AS main_image,
-            (SELECT SUM(Stock) FROM Product_Variants WHERE ProductID = p.ProductID) AS total_stock
-            FROM Products p ORDER BY p.ProductID DESC
-            ");
-          if ($result) {
-            while ($row = $result->fetch_assoc()) {
-              ?>
               <tr>
-                <td><?php echo $row["ProductID"]; ?></td>
-                <td>
-                  <?php if (!empty($row["main_image"])) { ?>
-                    <img src="../../<?php echo $row["main_image"]; ?>" width="60" alt="Product image">
-                      <?php } else { echo "No image"; } ?>
+                <td><?php echo $row['ProductID']; ?></td>   <!-- Product ID -->
+                 
+                <td>   <!-- Product image -->
+                  <?php if (!empty($row['Main_Image'])): ?>
+                  <img
+                    src="../../<?php echo $row['Main_Image']; ?>"
+                    alt="Product Image" class="product-image">
+                    <?php else: ?>
+                  <span>No Image</span>
+                    <?php endif; ?>
                 </td>
-                <td><?php echo $row["Name"]; ?></td>
-                <td><?php echo $row["Category"]; ?></td>
-                <td><?php echo $row["Product_Type"]; ?></td>
-                <td>R<?php echo $row["Price"]; ?></td>
-                <td><?php echo $row["total_stock"] ?? 0; ?></td>
+                 
+                <td><?php echo $row['Name']; ?></td>  <!-- Product name -->
+                <td><?php echo $row['Category']; ?></td>    <!-- Category -->
+                <td><?php echo $row['Product_Type']; ?></td>   <!-- Product type -->
+                <td>R<?php echo number_format($row['Price'], 2); ?></td>  <!-- Price -->
+                <td><?php echo $row['Variant_Count']; ?></td>    <!-- Number of variants -->
+                <td><?php echo $row['Total_Stock']; ?></td>      <!-- Total stock -->
+                <td><?php echo $row['Status']; ?></td>   <!-- Product status -->
+              
                 <td>
-                  <a href="edit_product.php?id=<?php echo $row["ProductID"]; ?>">Edit</a>
-                  <a href="delete_product.php?id=<?php echo $row["ProductID"]; ?>" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                  <a href="edit_product.php?id=<?php echo $row['ProductID']; ?>">Edit</a>
+
+                  <a href="delete_product.php?id=<?php echo $row['ProductID']; ?>"
+                    onclick="return confirm('Are you sure you want to delete this product?');">
+                    Delete
+                  </a>
+
+                </td>    <!-- Actions -->
+              </tr>
+
+              <?php endwhile; ?>
+                <?php else: ?>
+
+              <tr>
+                <td colspan="10">
+                  No products found.
                 </td>
               </tr>
-                 <?php
-            }
-          }
-                 ?>
-        </table>
+              <?php endif; ?>
+
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
+    <footer>
+      <p>&copy; <?php echo date("Y"); ?> Trend Heaven. All rights reserved.</p>
+    </footer>
   </body>
 </html>

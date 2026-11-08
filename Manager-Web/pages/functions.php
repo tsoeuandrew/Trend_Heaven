@@ -3,8 +3,8 @@
     //define variables and set to empty value
     $customer_id = $name = $surname = $mobile_number = $email = $username = $password =  $gender = $address = $date_of_birth ="";
     $customer_id_error = $name_error = $surname_error = $mobile_number_error = $email_error = $username_error = $password_error =  $gender_error = $address_error = $date_of_birth_error ="";
-    $description = $size = $colour = $sku = $stock  = $category = $price = $product_type = $product_image ="";
-    $description_error = $size_error = $colour_error = $sku_error = $stock_error = $category_error = $price_error =  $product_type_error = $product_image_error = "";
+    $description = $size = $colour = $stock  = $category = $price = $product_type = $product_image ="";
+    $description_error = $size_error = $colour_error = $stock_error = $category_error = $price_error =  $product_type_error = $product_image_error = "";
  
 function validate_user(){
     global $customer_id, $name, $surname, $mobile_number, $email, $username, $password, $gender, $address, $date_of_birth;
@@ -96,19 +96,11 @@ function validate_product(){
         $description = $_POST['description']?? '';
         $size = $_POST['size']?? '';
         $colour = $_POST['colour']?? '';
-        $sku = $_POST['sku'] ?? '';
         $stock  = $_POST['stock']?? '';
         $category = $_POST['category']?? '';
         $price = $_POST['price']?? '';
         $product_type = $_POST['product_type']?? '';
         $product_image = $_FILES['product_image'] ?? null;
-
-        // Auto-generate SKU if empty
-        if (empty($sku) && !empty($name) && !empty($colour) && !empty($size)) {
-            $clean_name = strtoupper(str_replace(' ', '-', trim($name)));
-            $clean_colour = strtoupper(trim($colour));
-            $sku = $clean_name . '-' . $clean_colour . '-' . $size;
-        }
 
         if (empty($name)) {
          $name_error = "Name Required";
@@ -209,6 +201,11 @@ function insert_into_products(){
     $product_id = $conn->insert_id;
     $stmt->close();
 
+    // AUTO SKU - user never sees it, always unique, never duplicates
+    // Example: FY-PURPLE-L-123-839201
+    $sku = strtoupper(str_replace(' ', '-', trim($name))) . '-' . strtoupper($colour)
+             . '-' . $size . '-' . $product_id . '-' . time();
+
     // 2. Insert VARIANT - Colour, Size, Stock and SKU
     $stmt_v = $conn->prepare("INSERT INTO Product_Variants (ProductID, Colour, Size, Stock, SKU, Price)
                    VALUES (?, ?, ?, ?, ?, NULL)");
@@ -242,7 +239,7 @@ function insert_into_products(){
          $stmt2->close();
         }
     }
-    header("Location: admin.php");
+    header("Location: admin.php?added=1&name=" . urlencode($name));
     exit;
 }
    

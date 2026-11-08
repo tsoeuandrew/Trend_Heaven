@@ -4,15 +4,16 @@ function showSubcategories() {
     
     // Products available under each category.
     const products = {                  
-        Men: ["Jeans", "T-Shirts", "Shirts", "pajama", "Socks", "Shoes", "Jackets"],
-        Women: ["Dresses", "pajama", "Jeans", "Tops", "Skirts", "Shoes", "Handbags"],
-        Kids: ["T-Shirts", "Jeans","pajama", "Socks", "Shoes", "Jackets", "School-Wear"],
+        Men: ["Jeans", "T-Shirts", "Shirts", "Pajama", "Socks", "Shoes", "Jackets"],
+        Women: ["Dresses", "Pajama", "Jeans", "Tops", "Skirts", "Shoes", "Handbags"],
+        Kids: ["T-Shirts", "Jeans","Pajama", "Socks", "Shoes", "Jackets", "School-Wear"],
         House: ["Bedding", "Cushions", "Curtains", "Decor", "Kitchenware"]
     };
 
     // Remove old Product Type options.
     product_type.innerHTML =
         '<option value="" selected disabled>Select Product Type</option>';
+        if (!products[category]) return;
 
     // Add Product Type options for the selected category.
     products[category].forEach(function (product) {
